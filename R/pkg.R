@@ -5,6 +5,52 @@ NULL
 
 galog <- new.env()
 
+#' Save settings specified by user to file
+#'
+#' @param path location of the file to use
+#'
+#' @return the settings in a JSON format
+#' @export
+#' @examples ge_get_settings()
+ge_get_settings <- function(){
+  if(missing(path)){
+    path="~/galog_settings.json"
+  }
+  if (!file.exists(path)) {
+    stop("Please use ga_set_settings first before attempting to get settings")
+  } else{
+    # TODO check if settings are in env and get them from there. Otherwise read from disk
+    settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
+    do.call(Sys.setenv,settings)
+    return(settings)
+  }
+}
+
+#' Set user defined settings to file
+#'
+#' @param path location of file to use
+#' @param ... settings to save. Must be a list with name-variable pair
+#'
+#' @return helpful message
+#' @export
+#'
+#' @examples ga_set_settings(var1="settings1",var2=1)
+ga_set_settings <- function(path,...){
+  if(missing(path)){
+    path="~/galog_settings.json"
+  }
+  if (!file.exists(path)) {
+    settings <- as.list(...)
+    jsonlite::write_json(settings, path)
+    print("Setting has been saved")
+  } else{
+    settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
+    do.call(Sys.setenv,settings)
+    print("Your settings have been loaded from file")
+  }
+}
+
+
 .onLoad <- function(libname, pkgname) {
   galog$tracking_id <- Sys.getenv(x = "GALOG_UA_TRACKINGID", unset = NA)
   galog$client_id <- Sys.getenv(x = "GALOG_UA_CLIENTID", unset = NA)
