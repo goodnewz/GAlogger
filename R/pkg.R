@@ -180,12 +180,21 @@ ga_set_client_id <- function(client_id = NULL){
 #'
 #' @examples
 ga_set_url <- function(){
+  if(!is.null(galog$settings$user_id)){
+    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&uid=%s&ds=GAlogger" 
+    id <- galog$settings$user_id
+  } else if(!is.null(galog$settings$client_id)){
+    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&ds=GAlogger" 
+    id <- galog$settings$client_id
+  }else{
+    stop("You must specify a client or user ID")
+  }
+    
   galog$url <-
     sprintf(
-      "http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&uid=%s&ds=GAlogger",
-      galog$tracking_id,
-      galog$client_id,
-      galog$user_id
+      url,
+      galog$settings$tracking_id,
+      id
     )
   invisible(as.list(galog))
 }
