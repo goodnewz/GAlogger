@@ -4,7 +4,7 @@
 \alias{ga_get_settings}
 \title{Save settings specified by user to file}
 \usage{
-ga_get_settings()
+ga_get_settings(path)
 }
 \arguments{
 \item{path}{location of the file to use}

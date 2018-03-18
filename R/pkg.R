@@ -51,25 +51,39 @@ ga_get_settings <- function(path){
 #' Set user defined settings to file
 #'
 #' @param path location of file to use
-#' @param ... settings to save. Must be a list with name-variable pair
+#' @param ... settings to save. Must be a list with name-value pair (e.g. tracking_id="XXXXXXXX-x")
 #'
-#' @return helpful message
+#' @return a helpful message
 #' @export
 #'
 #' @examples ga_set_settings(var1="settings1",var2=1)
-ga_set_settings <- function(path,...){
-  if(missing(path)){
-    path="~/galog_settings.json"
+ga_set_settings <- function(path=NULL,...){
+  if(is.null(path)){
+    path <- "~/galog_settings.json"
   }
-  if (!file.exists(path)) {
-    settings <- as.list(...)
-    jsonlite::write_json(settings, path)
-    print("Setting has been saved")
-  } else{
-    settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
-    do.call(Sys.setenv,settings)
-    print("Your settings have been loaded from file")
+  new_settings <- list(...)
+  print(new_settings)
+  
+  if (file.exists(path)) {
+    current_settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
+    ## remove duplicates
+    current_settings<- current_settings[!names(current_settings)==names(new_settings)]
+    new_settings<- append(current_settings,new_settings)
   }
+  jsonlite::write_json(new_settings, path)
+  print("Setting have been saved")
+  
+}
+
+ga_delete_settings(path=NULL,...){
+  if(is.null(path)){
+    path <- "~/galog_settings.json"
+  }
+  
+  if (file.exists(path)) {
+    file.remove(path,showWarnings=TRUE)
+  }
+  print("Setting have been deleted")
 }
 
 #' @title Provide the Google Analytics tracking ID where all user interactions will be logged to
