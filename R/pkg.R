@@ -126,7 +126,8 @@ ga_set_user_id <- function(user_id = NULL){
     user_id <- uuid::UUIDgenerate()
   }
   user_id <- curl::curl_escape(user_id)
-  return(user_id)
+  galog$settings$user_id <- user_id
+  galog$settings$client_id <- NULL
 }
 
 
@@ -151,7 +152,8 @@ ga_set_client_id <- function(client_id = NULL){
     client_id <- uuid::UUIDgenerate()
   }
   client_id <- curl::curl_escape(client_id)
-  galog$client_id <- client_id
+  galog$settings$client_id <- client_id
+  galog$settings$user_id <- NULL
   return(client_id)
 }
 
