@@ -32,18 +32,20 @@ galog <- new.env()
 #' @return the settings in a JSON format
 #' @export
 #' @examples ge_get_settings()
-ga_get_settings <- function(){
+ga_get_settings <- function(path){
   if(missing(path)){
     path="~/galog_settings.json"
   }
   if (!file.exists(path)) {
-    stop("Please use ga_set_settings first before attempting to get settings")
+    stop("Please use ga_set_settings first before attempting to get the settings")
   } else{
     # TODO check if settings are in env and get them from there. Otherwise read from disk
     settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
-    do.call(Sys.setenv,settings)
-    return(settings)
   }
+  
+  galog$settings <- settings
+    
+  print("Settings have been loaded")  
 }
 
 #' Set user defined settings to file

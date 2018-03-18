@@ -4,15 +4,15 @@
 \alias{ga_set_settings}
 \title{Set user defined settings to file}
 \usage{
-ga_set_settings(path, ...)
+ga_set_settings(path = NULL, ...)
 }
 \arguments{
 \item{path}{location of file to use}
 
-\item{...}{settings to save. Must be a list with name-variable pair}
+\item{...}{settings to save. Must be a list with name-value pair (e.g. tracking_id="XXXXXXXX-x")}
 }
 \value{
-helpful message
+a helpful message
 }
 \description{
 Set user defined settings to file
