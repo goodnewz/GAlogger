@@ -81,8 +81,9 @@ ga_delete_settings <- function(path=NULL,...){
   
   if (file.exists(path)) {
     file.remove(path)
-  }
   print("Setting have been deleted")
+  } else {print("No settings file to delete")}
+
 }
 
 #' @title Provide the Google Analytics tracking ID where all user interactions will be logged to
