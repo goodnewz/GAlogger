@@ -277,10 +277,10 @@ ga_set_approval <- function(message, consent = FALSE){
   }
   ## Print out a note and set consent to TRUE/FALSE
   if(consent == "yes"){
-    galog$consent <- TRUE
+    galog$settings$consent <- TRUE
     cat("Thank you for your consent to send usage data to Google Analytics")
   }else{
-    galog$consent <- FALSE
+    galog$settings$consent <- FALSE
     cat("No consent given")
   }
   invisible(as.list(galog))
