@@ -1,9 +1,29 @@
-#' @importFrom curl curl_escape curl_fetch_memory
-#' @importFrom uuid UUIDgenerate
-NULL
-
-
+# ### INITIALIZE ####
+# create the working environment and set everything in it
 galog <- new.env()
+
+# load part when loading the package
+.onLoad <- function(libname, pkgname) {
+  galog$tracking_id <- Sys.getenv(x = "GALOG_UA_TRACKINGID", unset = NA)
+  galog$client_id <- Sys.getenv(x = "GALOG_UA_CLIENTID", unset = NA)
+  if(is.na(galog$client_id)){
+    galog$client_id <- ga_set_client_id()  
+  }
+
+  galog$user_id <- Sys.getenv(x = "GALOG_UA_USERID", unset = NA)
+  if(is.na(galog$user_id)){
+    galog$client_id <- ga_set_user_id()
+    ## Setting hostname to 'GAlogger'
+    galog$hostname <- ga_set_hostname()
+  }
+  galog$consent <- Sys.getenv(x = "GALOG_CONSENT", unset = NA)
+  galog$hostname <- Sys.getenv(x = "GALOG_HOSTNAME", unset = NA)
+  galog$consent <- ifelse(galog$consent %in% "yes", TRUE, FALSE)
+  ga_set_url()
+  ga_set_approval_message()
+}
+
+# ### END INITIALIZE ####
 
 #' Save settings specified by user to file
 #'
