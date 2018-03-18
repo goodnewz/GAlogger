@@ -385,10 +385,10 @@ ga_collect_pageview <- function(page="/home", title=page, hostname=galog$hostnam
 #'
 #' @examples
 send <- function(url){
-  if(is.na(galog$tracking_id)){
-    stop("You forgot to set the tracking_id which looks like UA-XXXXX-Y, see ?ga_set_tracking_id")
+  if(is.na(galog$settings$tracking_id)){
+    stop("You forgot to set the tracking_id which looks like UA-XXXXX-Y, see ?ga_set_tracking_idor ?ga_save_settings")
   }
-  if(galog$consent){
+  if(galog$settings$consent){
     ## Send the data, put it in a try block to avoid the R program stops
     result <- try(curl_fetch_memory(url), silent = TRUE)
     return(result)
