@@ -173,10 +173,20 @@ ga_set_url <- function(){
   invisible(as.list(galog))
 }
 
-ga_set_hostname <- function(x='GAlogger'){
-  stopifnot(is.character(x) & length(x) == 1 & nchar(x) > 0)
-  galog$hostname <- x
-  invisible(as.list(galog))
+#' Set hostname
+#'
+#' @param host_name the hostname as character
+#'
+#' @return galog object with hostname in
+#' @export
+#'
+#' @examples
+#' ga_set_hostname("Magical hostname")
+ga_set_hostname <- function(hostname='GAlogger'){
+  if(!is.character(hostname) & length(hostname) != 1 & nchar(hostname) == 0){
+    stop("hostname was not specified correctly")
+  }
+  return(hostname)
 }
 
 ga_set_approval_message <- function(x){
