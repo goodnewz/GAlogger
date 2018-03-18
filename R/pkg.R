@@ -140,20 +140,36 @@ ga_set_client_id <- function(client_id = NULL){
   return(client_id)
 }
 
+
+#' Create galog url
+#' 
+#' Creates galog$url and ready to send to Google
+#'
+#'  v=1              // Version. 
+#'  &tid=UA-XXXXX-Y  // Tracking ID / Property ID.
+#'  &cid=555         // This anonymously identifies a particular user, device,
+#'  or browser instance 
+#'  &uid=555         // Known identifier for a user provided
+#'  by the site owner/tracking library user 
+#'  &ds=GAlogger        // Data source: set to GAlogger
+#'  
+#'  Google protocol guidelines:
+#'  
+#' https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
+#' https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
+#'
+#' @return galog object
+#' @export
+#'
+#' @examples
 ga_set_url <- function(){
-  #v=1              // Version.
-  #&tid=UA-XXXXX-Y  // Tracking ID / Property ID.
-  #&cid=555         // This anonymously identifies a particular user, device, or browser instance
-  #&uid=555         // Known identifier for a user provided by the site owner/tracking library user
-  #&ds=GAlogger        // Data source: set to GAlogger
-
-  # https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
-  # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
-
-  galog$url <- sprintf("http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&uid=%s&ds=GAlogger",
+  galog$url <-
+    sprintf(
+      "http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&uid=%s&ds=GAlogger",
       galog$tracking_id,
       galog$client_id,
-                       galog$user_id)
+      galog$user_id
+    )
   invisible(as.list(galog))
 }
 
