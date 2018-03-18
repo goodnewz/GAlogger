@@ -99,8 +99,7 @@ ga_set_tracking_id <- function(x = NULL){
   if(is.null(x) || !is.character(x)){
     stop("You forgot to set up a proper tracking id. You currently set: ",x)
   }
-  galog$tracking_id <- x
-  ga_set_url()
+  galog$settings$tracking_id <- x
   invisible(as.list(galog))
 }
 
