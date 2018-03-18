@@ -62,7 +62,6 @@ ga_set_settings <- function(path=NULL,...){
     path <- "~/galog_settings.json"
   }
   new_settings <- list(...)
-  print(new_settings)
   
   if (file.exists(path)) {
     current_settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
@@ -75,13 +74,13 @@ ga_set_settings <- function(path=NULL,...){
   
 }
 
-ga_delete_settings(path=NULL,...){
+ga_delete_settings <- function(path=NULL,...){
   if(is.null(path)){
     path <- "~/galog_settings.json"
   }
   
   if (file.exists(path)) {
-    file.remove(path,showWarnings=TRUE)
+    file.remove(path)
   }
   print("Setting have been deleted")
 }
