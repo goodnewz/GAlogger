@@ -1,5 +1,11 @@
 # ### INITIALIZE ####
 # create the working environment and set everything in it
+# galog$settings$user_id
+# galog$settings$client_id
+# galog$settings$tracking_id
+# galog$settings$hostname
+# galog$settings$consent
+# galog$url
 galog <- new.env()
 
 # load part when loading the package
