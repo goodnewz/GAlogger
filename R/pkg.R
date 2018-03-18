@@ -91,15 +91,8 @@ ga_set_tracking_id <- function(x = NULL){
 #' @title Provide the identifier which will be used to identify a visitor/user
 #' @description Set the identifier of a visitor as it is known by you. 
 #' The user_id identifier is the identifier of the visitor/user as it is know by you.
-#' Defaults to a randomly generated identifier.\cr
-#' 
-#' You can also set the client_id identifier which anonymously identifies a particular user or device. 
-#' For R users this client_id identifies the same user across different R sessions. 
-#' The value of this field should be a random UUID (version 4) as described in \url{http://www.ietf.org/rfc/rfc4122.txt}\cr
 #' By default for every new R session, a new client_id is generated.
 #' @param user_id a character string with the visitor/user known to you. Defaults to a randomly generated UUID.
-#' @param client_id a character string in UUID format which anonymously and uniquely identifies a particular R user or device across different R sessions.
-#' Defaults to a randomly generated UUID.
 #' @return invisibly a list all general settings used to send data to Google Analytics
 #' @export
 #' @examples
@@ -112,23 +105,39 @@ ga_set_tracking_id <- function(x = NULL){
 #' x
 #' ga_set_user_id(x)
 #' ga_set_user_id(x, client_id = "a5d1eeb6-0459-11e8-8912-134976ff196e")
-ga_set_user_id <- function(user_id = uuid::UUIDgenerate(), client_id = uuid::UUIDgenerate()){
-  userid <- curl::curl_escape(user_id)
-  galog$user_id <- userid
-  if(!missing(client_id)){
-    clientid <- curl::curl_escape(client_id)
-    ga_set_client_id(clientid)
+ga_set_user_id <- function(user_id = NULL){
+  if(is.null(user_id)){
+    # set USERID if null
+    user_id <- uuid::UUIDgenerate()
   }
-  ga_set_url()
-  invisible(as.list(galog))
+  user_id <- curl::curl_escape(user_id)
+  return(user_id)
 }
 
 
-ga_set_client_id <- function(x = uuid::UUIDgenerate()){
-  userid <- curl::curl_escape(x)
-  galog$client_id <- userid
-  ga_set_url()
-  invisible(as.list(galog))
+#' Set client id
+#' 
+#' Defaults to a randomly generated identifier.
+#' 
+#' You can also set the client_id identifier which anonymously identifies a particular user or device. 
+#' For R users this client_id identifies the same user across different R sessions. 
+#' The value of this field should be a random UUID (version 4) as described in \url{http://www.ietf.org/rfc/rfc4122.txt}
+#'
+#' @param client_id a character string in UUID format which anonymously and uniquely identifies a particular R user or device across different R sessions.
+#' Defaults to a randomly generated UUID.
+#'
+#' @return client_id
+#' @export
+#'
+#' @examples ga_set_client_id(client_id=uuid::UUIDgenerate())
+ga_set_client_id <- function(client_id = NULL){
+  if(is.null(client_id)){
+    # set clientID if null
+    client_id <- uuid::UUIDgenerate()
+  }
+  client_id <- curl::curl_escape(client_id)
+  galog$client_id <- client_id
+  return(client_id)
 }
 
 ga_set_url <- function(){
@@ -142,8 +151,8 @@ ga_set_url <- function(){
   # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
 
   galog$url <- sprintf("http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&uid=%s&ds=GAlogger",
-                       galog$tracking_id,
-                       galog$client_id,
+      galog$tracking_id,
+      galog$client_id,
                        galog$user_id)
   invisible(as.list(galog))
 }
@@ -157,11 +166,11 @@ ga_set_hostname <- function(x='GAlogger'){
 ga_set_approval_message <- function(x){
   if(missing(x)){
     x <- sprintf("Hello %s
-This is just a message to inform you that we are collecting information how you use this application\nWe will send the following information to Google Analytics:
-- Which parts of our application you are using
-- When errors are occurring
-- Your information will be tracked anonymously as user %s
-- This information is collected in order to provide us better insights on how people use this application\n",
+      This is just a message to inform you that we are collecting information how you use this application\nWe will send the following information to Google Analytics:
+      - Which parts of our application you are using
+      - When errors are occurring
+      - Your information will be tracked anonymously as user %s
+      - This information is collected in order to provide us better insights on how people use this application\n",
                  Sys.getenv("USERNAME"), galog$user_id)
   }
   galog$message <- x

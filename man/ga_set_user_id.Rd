@@ -4,14 +4,10 @@
 \alias{ga_set_user_id}
 \title{Provide the identifier which will be used to identify a visitor/user}
 \usage{
-ga_set_user_id(user_id = uuid::UUIDgenerate(),
-  client_id = uuid::UUIDgenerate())
+ga_set_user_id(user_id = NULL)
 }
 \arguments{
 \item{user_id}{a character string with the visitor/user known to you. Defaults to a randomly generated UUID.}
-
-\item{client_id}{a character string in UUID format which anonymously and uniquely identifies a particular R user or device across different R sessions.
-Defaults to a randomly generated UUID.}
 }
 \value{
 invisibly a list all general settings used to send data to Google Analytics
@@ -19,11 +15,6 @@ invisibly a list all general settings used to send data to Google Analytics
 \description{
 Set the identifier of a visitor as it is known by you. 
 The user_id identifier is the identifier of the visitor/user as it is know by you.
-Defaults to a randomly generated identifier.\cr
-
-You can also set the client_id identifier which anonymously identifies a particular user or device. 
-For R users this client_id identifies the same user across different R sessions. 
-The value of this field should be a random UUID (version 4) as described in \url{http://www.ietf.org/rfc/rfc4122.txt}\cr
 By default for every new R session, a new client_id is generated.
 }
 \examples{
