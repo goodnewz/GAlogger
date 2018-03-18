@@ -2,7 +2,9 @@
 
 export(ga_collect_event)
 export(ga_collect_pageview)
+export(ga_get_settings)
 export(ga_set_approval)
+export(ga_set_settings)
 export(ga_set_tracking_id)
 export(ga_set_user_id)
 importFrom(curl,curl_escape)

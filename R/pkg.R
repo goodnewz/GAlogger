@@ -12,7 +12,7 @@ galog <- new.env()
 #' @return the settings in a JSON format
 #' @export
 #' @examples ge_get_settings()
-ge_get_settings <- function(){
+ga_get_settings <- function(){
   if(missing(path)){
     path="~/galog_settings.json"
   }
@@ -50,29 +50,6 @@ ga_set_settings <- function(path,...){
   }
 }
 
-
-.onLoad <- function(libname, pkgname) {
-  galog$tracking_id <- Sys.getenv(x = "GALOG_UA_TRACKINGID", unset = NA)
-  galog$client_id <- Sys.getenv(x = "GALOG_UA_CLIENTID", unset = NA)
-  if(is.na(galog$client_id)){
-    galog$client_id <- uuid::UUIDgenerate()  
-  }
-  galog$user_id <- Sys.getenv(x = "GALOG_UA_USERID", unset = NA)
-  if(is.na(galog$user_id)){
-    ga_set_user_id()
-  }
-  galog$consent <- Sys.getenv(x = "GALOG_CONSENT", unset = NA)
-  galog$hostname <- Sys.getenv(x = "GALOG_HOSTNAME", unset = NA)
-  galog$consent <- ifelse(galog$consent %in% "yes", TRUE, FALSE)
-  ga_set_url()
-  ga_set_approval_message()
-  if(is.na(galog$user_id)){
-    ## Setting hostname to 'GAlogger'
-    ga_set_hostname()
-  }
-
-}
-
 #' @title Provide the Google Analytics tracking ID where all user interactions will be logged to
 #' @description The Google Analytics tracking ID looks something like UA-XXXXX-Y. For example UA-25938715-4.
 #' Get your own tracking ID at the Google Analytics website.
@@ -82,7 +59,10 @@ ga_set_settings <- function(path,...){
 #' @export
 #' @examples
 #' ga_set_tracking_id("UA-25938715-4")
-ga_set_tracking_id <- function(x = "UA-25938715-4"){
+ga_set_tracking_id <- function(x = NULL){
+  if(is.null(x) || !is.character(x)){
+    stop("You forgot to set up a proper tracking id. You currently set: ",x)
+  }
   galog$tracking_id <- x
   ga_set_url()
   invisible(as.list(galog))
