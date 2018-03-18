@@ -32,7 +32,7 @@ galog <- new.env()
 #' @return the settings in a JSON format
 #' @export
 #' @examples ge_get_settings()
-ga_get_settings <- function(path){
+ga_load_settings <- function(path){
   if(missing(path)){
     path="~/galog_settings.json"
   }
