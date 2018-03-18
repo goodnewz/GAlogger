@@ -42,7 +42,6 @@ ga_load_settings <- function(path){
     # TODO check if settings are in env and get them from there. Otherwise read from disk
     settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
   }
-  
   galog$settings <- settings
     
   print("Settings have been loaded")  
@@ -57,7 +56,8 @@ ga_load_settings <- function(path){
 #' @export
 #'
 #' @examples ga_set_settings(var1="settings1",var2=1)
-ga_set_settings <- function(path=NULL,...){
+ga_save_settings <- function(path=NULL,...){
+  
   if(is.null(path)){
     path <- "~/galog_settings.json"
   }
