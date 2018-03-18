@@ -262,7 +262,7 @@ ga_set_approval <- function(message, consent = FALSE){
 
 
 
-
+# ### Event collection ####
 #' @title Send events to Google Analytics
 #' @description Send events to Google Analytics.
 #' If an event happens in your script, use this function to send the event to Google Analytics.
