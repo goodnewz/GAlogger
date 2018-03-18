@@ -212,7 +212,7 @@ ga_set_hostname <- function(hostname='GAlogger'){
   if(!is.character(hostname) & length(hostname) != 1 & nchar(hostname) == 0){
     stop("hostname was not specified correctly")
   }
-  return(hostname)
+  galog$settings$hostname <- hostname
 }
 
 #' Set the aproval message for the user
