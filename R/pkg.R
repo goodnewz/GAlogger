@@ -9,7 +9,7 @@ galog <- new.env()
   if(is.na(galog$client_id)){
     galog$client_id <- ga_set_client_id()  
   }
-
+  
   galog$user_id <- Sys.getenv(x = "GALOG_UA_USERID", unset = NA)
   if(is.na(galog$user_id)){
     galog$client_id <- ga_set_user_id()
@@ -350,6 +350,14 @@ ga_collect_pageview <- function(page="/home", title=page, hostname=galog$hostnam
   invisible(req)
 }
 
+#' Send event using curl
+#'
+#' @param url url to be used to send
+#'
+#' @return 
+#' @export
+#'
+#' @examples
 send <- function(url){
   if(is.na(galog$tracking_id)){
     stop("You forgot to set the tracking_id which looks like UA-XXXXX-Y, see ?ga_set_tracking_id")
