@@ -367,7 +367,7 @@ ga_collect_event <- function(event_category="Start", event_action="default", eve
 #'
 #' x <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.xyz.com")
 #' x$status_code
-ga_collect_pageview <- function(page="/home", title=page, hostname=galog$hostname){
+ga_collect_pageview <- function(page="/home", title=page, hostname=galog$settings$hostname){
   #&dh=mydemo.com   // Document hostname.
   #&dp=/home        // Page.
   #&dt=homepage     // Title.
