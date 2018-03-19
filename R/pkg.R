@@ -61,7 +61,7 @@ ga_load_settings <- function(path){
 #' @return a helpful message
 #' @export
 #'
-#' @examples ga_set_settings(var1="settings1",var2=1)
+#' @examples ga_set_settings(user_id="User1",client_id="111111-x",hostname="Google.com",consent=TRUE)
 ga_save_settings <- function(path=NULL,...){
   
   if(is.null(path)){
@@ -214,7 +214,7 @@ ga_set_url <- function(){
 #'
 #' @examples
 #' ga_set_hostname("Magical hostname")
-ga_set_hostname <- function(hostname='GAlogger'){
+ga_set_hostname <- function(hostname='Google.com'){
   if(!is.character(hostname) & length(hostname) != 1 & nchar(hostname) == 0){
     stop("hostname was not specified correctly")
   }

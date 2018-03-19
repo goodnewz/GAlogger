@@ -18,5 +18,5 @@ a helpful message
 Set user defined settings to file
 }
 \examples{
-ga_set_settings(var1="settings1",var2=1)
+ga_set_settings(user_id="User1",client_id="111111-x",hostname="Google.com",consent=TRUE)
 }

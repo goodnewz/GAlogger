@@ -4,7 +4,7 @@
 \alias{ga_set_hostname}
 \title{Set hostname}
 \usage{
-ga_set_hostname(hostname = "GAlogger")
+ga_set_hostname(hostname = "Google.com")
 }
 \arguments{
 \item{host_name}{the hostname as character}
