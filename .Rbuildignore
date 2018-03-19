@@ -1,5 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-README-screenshot-1.png
-README-screenshot-2.png
-dev
+^README-screenshot-1\.png$
+^README-screenshot-2\.png$
+^development$
+^dev_script\.R$
+^test_script\.R$
+
