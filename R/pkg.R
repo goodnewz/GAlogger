@@ -271,11 +271,11 @@ ga_set_approval <- function(message, consent = FALSE){
   invisible(as.list(galog))
 }
 
-ga_initialize <- function(){
-  .NotYetUsed()
+#### SETUP ####
+
+ga_initialize <- function(save_file_path=NULL,...){
+  .NotYetImplemented()
 }
-
-
 # ### Event collection ####
 #' @title Send events to Google Analytics
 #' @description Send events to Google Analytics.
