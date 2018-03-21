@@ -22,7 +22,7 @@ ga_load_settings <- function(path){
     path="~/galog_settings.json"
   }
   if (!file.exists(path)) {
-    stop("Please use ga_set_settings first before attempting to get the settings")
+    stop("No settings file found. Specify the correct path or use ?ga_save_settings to save them first")
   } else{
     # TODO check if settings are in env and get them from there. Otherwise read from disk
     settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
