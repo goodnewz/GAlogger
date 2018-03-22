@@ -6,7 +6,7 @@
 # galog$settings$hostname
 # galog$settings$consent
 # galog$url
-galog <- new.env()
+galog <- new.env(parent = emptyenv())
 
 # ### END INITIALIZE ####
 
