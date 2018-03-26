@@ -66,7 +66,7 @@ ga_delete_settings <- function(path=NULL,...){
   
   if (file.exists(path)) {
     file.remove(path)
-  print("Setting have been deleted")
+    print("Setting have been deleted")
   } else {print("No settings file to delete")}
 
 }
@@ -217,8 +217,7 @@ ga_set_approval_message <- function(x = NULL) {
       - When errors are occurring
       - Your information will be tracked anonymously as user %s
       - This information is collected in order to provide us better insights on how people use this application\n",
-      Sys.getenv("USERNAME"),
-      galog$user_id
+      galog$settings$user_id
     )
   }
   galog$message <- x
