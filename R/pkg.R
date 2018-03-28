@@ -385,22 +385,33 @@ ga_collect_event <- function(event_category="Start", event_action="default", eve
 #'
 #' ga_collect_pageview(page = "/home")
 #' ga_collect_pageview(page = "/simulation", title = "Mixture process")
-#' ga_collect_pageview(page = "/simulation/bayesian")
-#' ga_collect_pageview(page = "/textmining-exploratory")
-#' ga_collect_pageview(page = "/my/killer/app")
 #'
 #' x <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.xyz.com")
 #' x$status_code
-ga_collect_pageview <- function(page="/home", title=page, hostname=galog$settings$hostname){
-  #&dh=mydemo.com   // Document hostname.
-  #&dp=/home        // Page.
-  #&dt=homepage     // Title.
+ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=galog$settings$hostname){
+  # For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
+  # dl	text	2048 Bytes	= http://foo.com/home?a=b //URL
+  #
+  # OR 
+  #
+  # dh	text	100 Bytes	 = foo.com // hostname
+  # dp  text  2048 Bytes = /foo //page
+  
+  url <- sprintf("%s&t=pageview",galog$url)
+  
+  if(is.null(url)){
   hostname <- curl::curl_escape(as.character(hostname))
   page <- curl::curl_escape(as.character(page))
-  url <- sprintf("%s&t=pageview&dh=%s&dp=%s", galog$url, hostname, page)
-  if(!missing(title)){
+    url <-  sprintf("%s&dh=%s&dp=%s", url,hostname, page)
+  }
+  if(!is.null(title)){
     title <- curl::curl_escape(as.character(title))
     url <- sprintf("%s&dt=%s", url, title)
+  }
+  
+  if(!is.null(url)){
+    page_url <- curl::curl_escape(as.character(page_url))
+    url <-  sprintf("%s&dl=%s", url, page_url) 
   }
   req <- send(url)
   invisible(req)

@@ -4,15 +4,17 @@
 \alias{ga_collect_pageview}
 \title{Send pageviews to Google Analytics}
 \usage{
-ga_collect_pageview(page = "/home", title = page,
+ga_collect_pageview(page_url = NULL, page = NULL, title = NULL,
   hostname = galog$settings$hostname)
 }
 \arguments{
+\item{page_url}{a character string with the url of the page being visited}
+
 \item{page}{a character string with the page which was visited}
 
 \item{title}{a character string with the title of the page which was visited}
 
-\item{hostname}{a character string with the hostname. Defaults to the environment variable GALOG_HOSTNAME and if not set uses 'GAlogger'.}
+\item{hostname}{a character string with the hostname. Defaults TEMP if not set}
 }
 \value{
 invisibly the result of a call to \code{\link[curl]{curl_fetch_memory}} which sends the data to Google Analytics
@@ -31,9 +33,6 @@ ga_set_approval(consent = TRUE)
 
 ga_collect_pageview(page = "/home")
 ga_collect_pageview(page = "/simulation", title = "Mixture process")
-ga_collect_pageview(page = "/simulation/bayesian")
-ga_collect_pageview(page = "/textmining-exploratory")
-ga_collect_pageview(page = "/my/killer/app")
 
 x <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.xyz.com")
 x$status_code
