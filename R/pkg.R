@@ -183,12 +183,12 @@ ga_set_url <- function(){
     url <-"http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&ds=GAlogger" 
     id <- galog$settings$client_id
     
-  galog$url <-
-    sprintf(
-      url,
-      galog$settings$tracking_id,
-      id
-    )
+    galog$url <-
+      sprintf(
+        url,
+        galog$settings$tracking_id,
+        id
+      )
   }else{
     stop("You must specify a clientID")
   }
@@ -373,9 +373,12 @@ ga_collect_event <- function(event_category="Start", event_action="default", eve
 #' easily see how users are using your application. \cr
 #'
 #' Pageviews can be viewed in the Google Analytics > Behaviour tab or in the Real-Time part of Google Analytics.
+#'
 #' @param page a character string with the page which was visited
 #' @param title a character string with the title of the page which was visited
-#' @param hostname a character string with the hostname. Defaults to the environment variable GALOG_HOSTNAME and if not set uses 'GAlogger'.
+#' @param page_url a character string with the url of the page being visited
+#' @param hostname a character string with the hostname. Defaults TEMP if not set
+#'
 #' @return invisibly the result of a call to \code{\link[curl]{curl_fetch_memory}} which sends the data to Google Analytics
 #' or an object of try-error if the internet is not working
 #' @export
@@ -400,8 +403,8 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=ga
   url <- sprintf("%s&t=pageview",galog$url)
   
   if(is.null(url)){
-  hostname <- curl::curl_escape(as.character(hostname))
-  page <- curl::curl_escape(as.character(page))
+    hostname <- curl::curl_escape(as.character(hostname))
+    page <- curl::curl_escape(as.character(page))
     url <-  sprintf("%s&dh=%s&dp=%s", url,hostname, page)
   }
   if(!is.null(title)){
