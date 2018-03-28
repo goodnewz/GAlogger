@@ -168,15 +168,21 @@ ga_set_client_id <- function(client_id = NULL){
 #'
 #' @examples
 ga_set_url <- function(){
-  if(!is.null(galog$settings$user_id)){
-    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&uid=%s&ds=GAlogger" 
+  if(!is.null(galog$settings$user_id) & !is.null(galog$settings$client_id) ){
+    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&uid=%s&cid=%s&ds=GAlogger" 
     id <- galog$settings$user_id
-  } else if(!is.null(galog$settings$client_id)){
+    cid <- galog$settings$client_id
+    
+    galog$url <-
+      sprintf(
+        url,
+        galog$settings$tracking_id,
+        id,
+        cid
+      )
+  } else if(is.null(galog$settings$user_id) & !is.null(galog$settings$client_id)){
     url <-"http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&ds=GAlogger" 
     id <- galog$settings$client_id
-  }else{
-    stop("You must specify a client or user ID")
-  }
     
   galog$url <-
     sprintf(
@@ -184,6 +190,10 @@ ga_set_url <- function(){
       galog$settings$tracking_id,
       id
     )
+  }else{
+    stop("You must specify a clientID")
+  }
+    
   invisible(as.list(galog))
 }
 
