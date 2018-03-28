@@ -2,6 +2,7 @@
 
 export(ga_collect_event)
 export(ga_collect_pageview)
+export(ga_initialize)
 export(ga_load_settings)
 export(ga_save_settings)
 export(ga_set_approval)

@@ -286,8 +286,39 @@ ga_set_approval <- function(message, consent = FALSE){
 
 #### SETUP ####
 
-ga_initialize <- function(save_file_path=NULL,...){
-  .NotYetImplemented()
+#' Initialize tracking
+#'
+#' @param path Path to the file where the settings are saved (Optional). If provided, settings are loaded from that location. Further parameters are ignored
+#' @param user_id  
+#' @param tracking_id 
+#' @param hostname 
+#' @param consent 
+#'
+#' @return
+#' @export
+#'
+#' @examples 
+#' ga_initialize("~/galog.json")
+#' ga_initalize(tracking_id="UA-XXXXXX-x,",user_id="Known user",hostname="www.foo.com",concent=TRUE)
+ga_initialize <- function(path=NULL,tracking_id=NULL,user_id=NULL,hostname="TEMP",consent=TRUE){
+  if(!is.null(path)){
+    ga_load_settings(path=path)
+    ga_set_user_id(galog$settings$user_id) # Set userID
+    ga_set_client_id() #keep client IDs unique
+    ga_set_tracking_id(galog$settings$tracking_id)
+    ga_set_hostname(hostname=galog$settings$hostname)
+    ga_set_approval(consent=galog$settings$consent)
+    ga_set_url()
+    ga_set_approval_message()
+  } else{
+    ga_set_user_id(user_id)
+    ga_set_client_id() #keep client IDs unique
+    ga_set_tracking_id(tracking_id)
+    ga_set_hostname(hostname)
+    ga_set_approval(consent=consent)
+    ga_set_url()
+    ga_set_approval_message()
+  }
 }
 # ### Event collection ####
 #' @title Send events to Google Analytics
