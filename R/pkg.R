@@ -6,6 +6,7 @@
 # galog$settings$hostname
 # galog$settings$consent
 # galog$url
+# galog$message
 galog <- new.env(parent = emptyenv())
 
 # ### END INITIALIZE ####
@@ -41,7 +42,7 @@ ga_load_settings <- function(path){
 #' @return a helpful message
 #' @export
 #'
-#' @examples ga_set_settings(user_id="User1",client_id="111111-x",hostname="Google.com",consent=TRUE)
+#' @examples ga_set_settings(user_id="User1",tracking_id="XXXXXXXX-x",hostname="Google.com",consent=TRUE)
 ga_save_settings <- function(path=NULL,...){
   
   if(is.null(path)){
