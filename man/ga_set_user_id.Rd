@@ -26,5 +26,4 @@ ga_set_user_id("shiny-server")
 x <- sprintf("\%s-\%s", Sys.getpid(), tolower(Sys.getenv("USERNAME", unset = "default")))
 x
 ga_set_user_id(x)
-ga_set_user_id(x, client_id = "a5d1eeb6-0459-11e8-8912-134976ff196e")
 }

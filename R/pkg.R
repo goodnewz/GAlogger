@@ -108,11 +108,10 @@ ga_set_tracking_id <- function(x = NULL){
 #' x <- sprintf("%s-%s", Sys.getpid(), tolower(Sys.getenv("USERNAME", unset = "default")))
 #' x
 #' ga_set_user_id(x)
-#' ga_set_user_id(x, client_id = "a5d1eeb6-0459-11e8-8912-134976ff196e")
 ga_set_user_id <- function(user_id = NULL){
   if(is.null(user_id)){
     # set USERID if null
-    user_id <- uuid::UUIDgenerate()
+    user_id <- NULL
   }
   user_id <- curl::curl_escape(user_id)
   galog$settings$user_id <- user_id
