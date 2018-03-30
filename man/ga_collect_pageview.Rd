@@ -5,7 +5,7 @@
 \title{Send pageviews to Google Analytics}
 \usage{
 ga_collect_pageview(page_url = NULL, page = NULL, title = NULL,
-  hostname = galog$settings$hostname)
+  hostname = galog$settings$hostname, user_id = NULL)
 }
 \arguments{
 \item{page_url}{a character string with the url of the page being visited}

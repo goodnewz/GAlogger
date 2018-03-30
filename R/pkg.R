@@ -1,10 +1,10 @@
 # ### INITIALIZE ####
 # create the working environment and set everything in it
-# galog$settings$user_id
-# galog$settings$client_id
 # galog$settings$tracking_id
 # galog$settings$hostname
 # galog$settings$consent
+# galog$user_id
+# galog$client_id
 # galog$url
 # galog$message
 galog <- new.env(parent = emptyenv())
@@ -29,9 +29,8 @@ ga_load_settings <- function(path){
     settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
   }
   # TODO CHECK IF SETTING NAMES ARE VALID
-  galog$settings <- settings
-    
   print("Settings have been loaded")  
+  invisible(settings)
 }
 
 #' Set user defined settings to file
@@ -168,8 +167,8 @@ ga_set_client_id <- function(client_id = NULL){
 ga_set_url <- function(){
   if(!is.null(galog$settings$user_id) & !is.null(galog$settings$client_id) ){
     url <-"http://www.google-analytics.com/collect?v=1&tid=%s&uid=%s&cid=%s&ds=GAlogger" 
-    id <- galog$settings$user_id
-    cid <- galog$settings$client_id
+    id <- galog$user_id
+    cid <- galog$client_id
     
     galog$url <-
       sprintf(
@@ -180,7 +179,7 @@ ga_set_url <- function(){
       )
   } else if(is.null(galog$settings$user_id) & !is.null(galog$settings$client_id)){
     url <-"http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&ds=GAlogger" 
-    id <- galog$settings$client_id
+    id <- galog$client_id
     
     galog$url <-
       sprintf(
@@ -208,7 +207,7 @@ ga_set_hostname <- function(hostname='Google.com'){
   if(!is.character(hostname) & length(hostname) != 1 & nchar(hostname) == 0){
     stop("hostname was not specified correctly")
   }
-  galog$settings$hostname <- hostname
+  invisible(hostname)
 }
 
 #' Set the aproval message for the user
@@ -299,19 +298,19 @@ ga_set_approval <- function(message, consent = FALSE){
 #' ga_initalize(tracking_id="UA-XXXXXX-x,",user_id="Known user",hostname="www.foo.com",concent=TRUE)
 ga_initialize <- function(path=NULL,tracking_id=NULL,user_id=NULL,hostname="TEMP",consent=TRUE){
   if(!is.null(path)){
-    ga_load_settings(path=path)
-    ga_set_user_id(galog$settings$user_id) # Set userID
-    ga_set_client_id() #keep client IDs unique
-    ga_set_tracking_id(galog$settings$tracking_id)
-    ga_set_hostname(hostname=galog$settings$hostname)
-    ga_set_approval(consent=galog$settings$consent)
+    galog$settings <- ga_load_settings(path=path)
+    #galog$user_id <- ga_set_user_id(galog$user_id) # Set userID
+    #galog$client_id <- ga_set_client_id(client_id=NULL) #keep client IDs unique
+    #galog$settings$tracking_id <- ga_set_tracking_id(galog$settings$tracking_id)
+    #ga_set_hostname(hostname=galog$settings$hostname)
+    #ga_set_approval(consent=galog$settings$consent)
     ga_set_url()
     ga_set_approval_message()
   } else{
-    ga_set_user_id(user_id)
-    ga_set_client_id() #keep client IDs unique
-    ga_set_tracking_id(tracking_id)
-    ga_set_hostname(hostname)
+    galog$user_id <- ga_set_user_id(user_id)
+    galog$client_id <- ga_set_client_id(client_id=NULL) #keep client IDs unique
+    galog$settings$tracking_id <- ga_set_tracking_id(tracking_id)
+    galog$settings$hostname <- ga_set_hostname(hostname)
     ga_set_approval(consent=consent)
     ga_set_url()
     ga_set_approval_message()
