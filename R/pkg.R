@@ -112,9 +112,9 @@ ga_set_user_id <- function(user_id = NULL){
   if(is.null(user_id)){
     # set USERID if null
     user_id <- NULL
+    galog$client_id <- ga_set_client_id(client_id = NULL)
   }
   user_id <- curl::curl_escape(user_id)
-  galog$settings$user_id <- user_id
   invisible(user_id)
 }
 
@@ -140,7 +140,6 @@ ga_set_client_id <- function(client_id = NULL){
     client_id <- uuid::UUIDgenerate()
   }
   client_id <- curl::curl_escape(client_id)
-  galog$settings$client_id <- client_id
   invisible(client_id)
 }
 
