@@ -29,7 +29,7 @@ ga_load_settings <- function(path){
     settings <- jsonlite::read_json(path,flatten = TRUE,simplifyVector=TRUE)
   }
   # TODO CHECK IF SETTING NAMES ARE VALID
-  print("Settings have been loaded")  
+  print("Settings have been loaded")
   invisible(settings)
 }
 
@@ -388,7 +388,7 @@ ga_collect_event <- function(event_category="Start", event_action="default", eve
 #'
 #' x <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.xyz.com")
 #' x$status_code
-ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=galog$settings$hostname){
+ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=galog$settings$hostname, user_id=NULL){
   # For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
   # dl	text	2048 Bytes	= http://foo.com/home?a=b //URL
   #
