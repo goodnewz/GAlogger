@@ -83,12 +83,11 @@ ga_delete_settings <- function(path=NULL,...){
 #' @export
 #' @examples
 #' ga_set_tracking_id("UA-25938715-4")
-ga_set_tracking_id <- function(x = NULL){
-  if(is.null(x) || !is.character(x)){
-    stop("You forgot to set up a proper tracking id. You currently set: ",x)
+ga_set_tracking_id <- function(tracking_id = NULL){
+  if(is.null(tracking_id) || !is.character(tracking_id)){
+    stop("You forgot to set up a proper tracking id. You currently set: ",tracking_id)
   }
-  galog$settings$tracking_id <- x
-  invisible(as.list(galog))
+  invisible(tracking_id)
 }
 
 #' @title Provide the identifier which will be used to identify a visitor/user

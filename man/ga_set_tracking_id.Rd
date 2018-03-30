@@ -4,7 +4,7 @@
 \alias{ga_set_tracking_id}
 \title{Provide the Google Analytics tracking ID where all user interactions will be logged to}
 \usage{
-ga_set_tracking_id(x = NULL)
+ga_set_tracking_id(tracking_id = NULL)
 }
 \arguments{
 \item{x}{a character string with the Google Analytics tracking ID}
