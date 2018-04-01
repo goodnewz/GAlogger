@@ -304,33 +304,50 @@ ga_init_user <- ga_set_user_id
 #' storing when a user uses your R webservice, keeping information on the status of a long-running process, sending and error message ...\cr
 #'
 #' Events can be viewed in the Google Analytics > Behaviour > Events tab or in the Real-Time part of Google Analytics.
+#'
 #' @param event_category a character string of length 1 with the category of the event
 #' @param event_action a character string of length 1 with the action of the event
 #' @param event_label a character string of length 1 with the label of the event. This is optional.
 #' @param event_value a character string of length 1 with the value of the event. This is optional.
+#' @param user a list with a user_id and client_id. Is set by ga_set_user_id or ga_init_user.
+#'
 #' @return invisibly the result of a call to \code{\link[curl]{curl_fetch_memory}} which sends the data to Google Analytics
 #' or an object of try-error if the internet is not working
 #' @export
 #' @examples
-#' ga_collect_event(event_category = "Start", event_action = "shiny app launched")
-#' ga_collect_event(event_category = "Simulation",
+#' 
+#' user <- ga_set_user_id(user_id=NULL) // do not use the user ID to identify and track your user
+#' user <- ga_set_user_id(user_id="Bob")
+#' 
+#' 
+#' ga_collect_event(user=user,event_category = "Start", event_action = "shiny app launched")
+#' ga_collect_event(user=user,event_category = "Simulation",
 #'                  event_label = "Launching Bayesian multi-level model",
 #'                  event_action = "How many simulations", event_value = 10)
-#' ga_collect_event(event_category = "Error",
+#' ga_collect_event(user=user,event_category = "Error",
 #'                  event_label = "convergence failed", event_action = "Oh no")
-#' ga_collect_event(event_category = "Error",
+#' ga_collect_event(user=user,event_category = "Error",
 #'                  event_label = "Bad input", event_action = "send the firesquad", event_value=911)
-ga_collect_event <- function(event_category="stats", event_action="calculate", event_label, event_value){
+ga_collect_event <- function(user=NULL,event_category="stats", event_action="calculate", event_label, event_value){
   # &ec=video        // Event Category. Required.
   # &ea=play         // Event Action. Required.
   # &el=holiday      // Event label.
   # &ev=300          // Event value.
-  
   url <- galog$url
   event_category <- curl::curl_escape(event_category)
   event_action <- curl::curl_escape(event_action)
   
+  if(is.nill(user)){
+    stop("Please set user variable first with ga_set_user_id or ga_init_user")
+  }
+  
+  url <- sprintf("%s&cid=%s&uid=%s",
+                 url,
+                 user$client_id,
+                 user$user_id)
+  
   url <- sprintf("%s&t=event&ec=%s&ea=%s", url, event_category, event_action)
+  
   if(!missing(event_label)){
     event_label <- curl::curl_escape(as.character(event_label))
     url <- sprintf("%s&el=%s", url, event_label)
@@ -351,22 +368,21 @@ ga_collect_event <- function(event_category="stats", event_action="calculate", e
 #' Pageviews can be viewed in the Google Analytics > Behaviour tab or in the Real-Time part of Google Analytics.
 #'
 #' @param page a character string with the page which was visited
-#' @param title a character string with the title of the page which was visited
 #' @param page_url a character string with the url of the page being visited
 #' @param hostname a character string with the hostname. Defaults TEMP if not set
+#' @param title Optional. A character string with the title of the page which was visited
+#' @param user_id Optional. A user ID to assign to your visit. A random client_id is generated alongside the user_id.
 #'
-#' @return invisibly the result of a call to \code{\link[curl]{curl_fetch_memory}} which sends the data to Google Analytics
-#' or an object of try-error if the internet is not working
+#' @return a list with the generated client_id and user_id
 #' @export
 #' @examples
-#' ga_set_tracking_id("UA-25938715-4")
-#' ga_set_approval(consent = TRUE)
 #'
 #' ga_collect_pageview(page = "/home")
-#' ga_collect_pageview(page = "/simulation", title = "Mixture process")
-#'
-#' x <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.xyz.com")
-#' x$status_code
+#' ga_collect_pageview(page = "/home", user_id=user_input)
+#' user <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.foo.com")
+#' user <- ga_collect_pageview(page_url="www.foo.com/mypage/")
+#' user <- ga_collect_pageview(page_url="www.foo.com/mypage.hml")
+#' #' user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
 ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=galog$settings$hostname, user_id=NULL){
   # For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
   # dl	text	2048 Bytes	= http://foo.com/home?a=b //URL

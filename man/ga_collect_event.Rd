@@ -4,10 +4,12 @@
 \alias{ga_collect_event}
 \title{Send events to Google Analytics}
 \usage{
-ga_collect_event(event_category = "Start", event_action = "default",
-  event_label, event_value)
+ga_collect_event(user = NULL, event_category = "stats",
+  event_action = "calculate", event_label, event_value)
 }
 \arguments{
+\item{user}{a list with a user_id and client_id. Is set by ga_set_user_id or ga_init_user.}
+
 \item{event_category}{a character string of length 1 with the category of the event}
 
 \item{event_action}{a character string of length 1 with the action of the event}
@@ -30,15 +32,17 @@ storing when a user uses your R webservice, keeping information on the status of
 Events can be viewed in the Google Analytics > Behaviour > Events tab or in the Real-Time part of Google Analytics.
 }
 \examples{
-ga_set_tracking_id("UA-25938715-4")
-ga_set_approval(consent = TRUE)
 
-ga_collect_event(event_category = "Start", event_action = "shiny app launched")
-ga_collect_event(event_category = "Simulation",
+user <- ga_set_user_id(user_id=NULL) // do not use the user ID to identify and track your user
+user <- ga_set_user_id(user_id="Bob")
+
+
+ga_collect_event(user=user,event_category = "Start", event_action = "shiny app launched")
+ga_collect_event(user=user,event_category = "Simulation",
                  event_label = "Launching Bayesian multi-level model",
                  event_action = "How many simulations", event_value = 10)
-ga_collect_event(event_category = "Error",
+ga_collect_event(user=user,event_category = "Error",
                  event_label = "convergence failed", event_action = "Oh no")
-ga_collect_event(event_category = "Error",
+ga_collect_event(user=user,event_category = "Error",
                  event_label = "Bad input", event_action = "send the firesquad", event_value=911)
 }
