@@ -9,6 +9,9 @@ send(url)
 \arguments{
 \item{url}{url to be used to send}
 }
+\value{
+TRUE/FALSE. Success of failure
+}
 \description{
 Send event using curl
 }

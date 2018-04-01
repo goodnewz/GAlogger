@@ -36,12 +36,12 @@ ga_load_settings <- function(path){
 #' Set user defined settings to file
 #'
 #' @param path location of file to use
-#' @param ... settings to save. Must be a list with name-value pair (e.g. tracking_id="XXXXXXXX-x")
+#' @param ... settings to save. Must be a list with name-value pair (e.g. tracking_id="UA-XXXXXXXX-x")
 #'
 #' @return a helpful message
 #' @export
 #'
-#' @examples ga_set_settings(user_id="User1",tracking_id="XXXXXXXX-x",hostname="Google.com",consent=TRUE)
+#' @examples ga_set_settings(tracking_id="UA-XXXXXXXX-x",hostname="www.Foo.com",consent=TRUE)
 ga_save_settings <- function(path=NULL,...){
   
   if(is.null(path)){
@@ -82,7 +82,7 @@ ga_delete_settings <- function(path=NULL,...){
 #' @return invisibly a list all general settings used to send data to Google Analytics
 #' @export
 #' @examples
-#' ga_set_tracking_id("UA-25938715-4")
+#' ga_set_tracking_id("UA-XXXXXXXX-X")
 ga_set_tracking_id <- function(tracking_id = NULL){
   if(is.null(tracking_id) || !is.character(tracking_id)){
     stop("You forgot to set up a proper tracking id. You currently set: ",tracking_id)
