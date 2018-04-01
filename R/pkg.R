@@ -289,6 +289,12 @@ ga_initialize <- function(path=NULL,tracking_id=NULL,consent=TRUE,hostname=NULL,
     galog$url <- ga_set_url(tracking_id=tracking_id)
   }
 }
+
+#' @rdname ga_set_user_id
+#' @export
+ga_init_user <- ga_set_user_id 
+
+
 # ### Event collection ####
 #' @title Send events to Google Analytics
 #' @description Send events to Google Analytics.

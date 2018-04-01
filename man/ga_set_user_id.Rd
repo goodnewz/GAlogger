@@ -2,9 +2,12 @@
 % Please edit documentation in R/pkg.R
 \name{ga_set_user_id}
 \alias{ga_set_user_id}
+\alias{ga_init_user}
 \title{Provide the identifier which will be used to identify a visitor/user}
 \usage{
 ga_set_user_id(user_id = NULL)
+
+ga_init_user(user_id = NULL)
 }
 \arguments{
 \item{user_id}{a character string with the visitor/user known to you. Defaults to a randomly generated UUID.}
