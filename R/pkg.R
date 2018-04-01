@@ -11,13 +11,18 @@ galog <- new.env(parent = emptyenv())
 
 # ### END INITIALIZE ####
 
-#' Save settings specified by user to file
+#' Load user settings
+#' 
+#'  The following settings: tracking_id, hostname(optional), and consent(TRUE/FALSE) are loaded from a file specified by the user. 
+#' Before using this function save your settings with ga_save_settings(path="/location/to/your/settings/file.json",tracking_id=UA-XXXXXXXX-X,hostname="foo.com", consent=TRUE). Or if you already have a settings file copy it to a location where ga_load_settings will be able to read it from. ga_load_settings can read from any location R can read from.
 #'
 #' @param path location of the file to use
 #'
 #' @return the settings in a JSON format
+#' 
 #' @export
-#' @examples ge_get_settings()
+#' 
+#' @examples ga_load_settings(path="/location/to/your/settings/file.json")
 ga_load_settings <- function(path){
   if(missing(path)){
     path="~/galog_settings.json"
@@ -36,9 +41,10 @@ ga_load_settings <- function(path){
 #' Set user defined settings to file
 #'
 #' @param path location of file to use
-#' @param ... settings to save. Must be a list with name-value pair (e.g. tracking_id="UA-XXXXXXXX-x")
+#' @param ... settings to save. Name-value pairs.
 #'
 #' @return a helpful message
+#' 
 #' @export
 #'
 #' @examples ga_set_settings(tracking_id="UA-XXXXXXXX-x",hostname="www.Foo.com",consent=TRUE)
@@ -62,7 +68,14 @@ ga_save_settings <- function(path=NULL,...){
   
 }
 
-ga_delete_settings <- function(path=NULL,...){
+#' Delete user settings file
+#'
+#' @param path path to a file to delete
+#'
+#' @export
+#'
+#' @examples ga_delete_settings(path="/location/to/your/settings/file.json")
+ga_delete_settings <- function(path=NULL){
   if(is.null(path)){
     path <- "~/galog_settings.json"
   }
@@ -95,6 +108,7 @@ ga_set_tracking_id <- function(tracking_id = NULL){
 #' The user_id identifier is the identifier of the visitor/user as it is know by you.
 #' By default for every new R session, a new client_id is generated.
 #' @param user_id a character string with the visitor/user known to you. Defaults to a randomly generated UUID.
+#' 
 #' @return invisibly a list all general settings used to send data to Google Analytics
 #' @export
 #' @examples
@@ -148,10 +162,6 @@ ga_set_client_id <- function(client_id = NULL){
 #'
 #'  v=1              // Version. 
 #'  &tid=UA-XXXXX-Y  // Tracking ID / Property ID.
-#'  &cid=555         // This anonymously identifies a particular user, device,
-#'  or browser instance 
-#'  &uid=555         // Known identifier for a user provided
-#'  by the site owner/tracking library user 
 #'  &ds=GAlogger        // Data source: set to GAlogger
 #'  
 #'  Google protocol guidelines:
@@ -159,7 +169,7 @@ ga_set_client_id <- function(client_id = NULL){
 #' https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
 #' https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
 #'
-#' @return galog object
+#' @return base url
 #' @export
 #'
 #' @examples ga_set_url(tracking_id="UA-XXXXXXXX-X")
@@ -263,8 +273,8 @@ ga_set_approval <- function(message, consent = FALSE){
 #'
 #' @param path Path to the file where the settings are saved (Optional). If provided, settings are loaded from that location. Further parameters are ignored
 #' @param tracking_id Google Analytics property ID (UA-XXXXXXXX-x)
-#' @param hostname Optinal. Hostname 
 #' @param consent  TRUE/FALSE. Do you agree to provide data to Google analytics. 
+#' @param hostname Optinal. Hostname 
 #' @param message Optional. Custom message to display upon agreement of terms. 
 #'
 #' @export
