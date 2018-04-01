@@ -17,7 +17,7 @@ ga_collect_pageview(page_url = NULL, page = NULL, title = NULL,
 \item{hostname}{a character string with the hostname. Defaults TEMP if not set}
 }
 \value{
-invisibly the result of a call to \code{\link[curl]{curl_fetch_memory}} which sends the data to Google Analytics
+a list with the generated client_id and user_id
 or an object of try-error if the internet is not working
 }
 \description{

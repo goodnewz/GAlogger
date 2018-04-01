@@ -371,23 +371,23 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=ga
   # dp  text  2048 Bytes = /foo //page
   
   url <- sprintf("%s&t=pageview",galog$url)
+  user <- ga_set_user_id(user_id = user_id)
+  url <- sprintf("%s&cid=%s&uid=%s",url,user$client_id,user$user_id)
   
-  if(is.null(url)){
+  
+  if(is.null(page_url)){
     hostname <- curl::curl_escape(as.character(hostname))
     page <- curl::curl_escape(as.character(page))
     url <-  sprintf("%s&dh=%s&dp=%s", url,hostname, page)
-  }
-  if(!is.null(title)){
+  }else if(!is.null(title)){
     title <- curl::curl_escape(as.character(title))
     url <- sprintf("%s&dt=%s", url, title)
-  }
-  
-  if(!is.null(url)){
+  }else { #!is.null(url)
     page_url <- curl::curl_escape(as.character(page_url))
     url <-  sprintf("%s&dl=%s", url, page_url) 
   }
   req <- send(url)
-  invisible(req)
+  return(user)
 }
 
 #' Send event using curl
