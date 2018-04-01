@@ -414,7 +414,7 @@ send <- function(url){
     result <- try(curl_fetch_memory(url), silent = TRUE)
     invisible(result)
   }else{
-    invisible()
+    stop("No consent given to send data to Google")
   }
 }
 
