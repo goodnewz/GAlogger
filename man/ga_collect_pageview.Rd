@@ -12,13 +12,14 @@ ga_collect_pageview(page_url = NULL, page = NULL, title = NULL,
 
 \item{page}{a character string with the page which was visited}
 
-\item{title}{a character string with the title of the page which was visited}
+\item{title}{Optional. A character string with the title of the page which was visited}
 
 \item{hostname}{a character string with the hostname. Defaults TEMP if not set}
+
+\item{user_id}{Optional. A user ID to assign to your visit. A random client_id is generated alongside the user_id.}
 }
 \value{
 a list with the generated client_id and user_id
-or an object of try-error if the internet is not working
 }
 \description{
 Send pageviews to Google Analytics.
@@ -28,12 +29,11 @@ easily see how users are using your application. \cr
 Pageviews can be viewed in the Google Analytics > Behaviour tab or in the Real-Time part of Google Analytics.
 }
 \examples{
-ga_set_tracking_id("UA-25938715-4")
-ga_set_approval(consent = TRUE)
 
 ga_collect_pageview(page = "/home")
-ga_collect_pageview(page = "/simulation", title = "Mixture process")
-
-x <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.xyz.com")
-x$status_code
+ga_collect_pageview(page = "/home", user_id=user_input)
+user <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.foo.com")
+user <- ga_collect_pageview(page_url="www.foo.com/mypage/")
+user <- ga_collect_pageview(page_url="www.foo.com/mypage.hml")
+#' user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
 }

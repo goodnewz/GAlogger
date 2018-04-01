@@ -372,7 +372,10 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=ga
   
   url <- sprintf("%s&t=pageview",galog$url)
   user <- ga_set_user_id(user_id = user_id)
-  url <- sprintf("%s&cid=%s&uid=%s",url,user$client_id,user$user_id)
+  url <- sprintf("%s&cid=%s&uid=%s",
+                 url,
+                 user$client_id,
+                 user$user_id)
   
   
   if(is.null(page_url)){
