@@ -162,35 +162,15 @@ ga_set_client_id <- function(client_id = NULL){
 #' @return galog object
 #' @export
 #'
-#' @examples
-ga_set_url <- function(){
-  if(!is.null(galog$settings$user_id) & !is.null(galog$settings$client_id) ){
-    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&uid=%s&cid=%s&ds=GAlogger" 
-    id <- galog$user_id
-    cid <- galog$client_id
-    
-    galog$url <-
-      sprintf(
-        url,
-        galog$settings$tracking_id,
-        id,
-        cid
-      )
-  } else if(is.null(galog$settings$user_id) & !is.null(galog$settings$client_id)){
-    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&cid=%s&ds=GAlogger" 
-    id <- galog$client_id
-    
-    galog$url <-
-      sprintf(
-        url,
-        galog$settings$tracking_id,
-        id
-      )
+#' @examples ga_set_url(tracking_id="UA-XXXXXXXX-X")
+ga_set_url <- function(tracking_id=NULL){
+  if(!is.null(tracking_id)){
+    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&ds=GAlogger" 
+    tid <- tracking_id
   }else{
-    stop("You must specify a clientID")
+    stop("You must specify a Google analytics property ID (tracking_id)")
   }
-    
-  invisible(as.list(galog))
+  invisible(url)
 }
 
 #' Set hostname

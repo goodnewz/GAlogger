@@ -4,7 +4,7 @@
 \alias{ga_set_url}
 \title{Create galog url}
 \usage{
-ga_set_url()
+ga_set_url(tracking_id = NULL)
 }
 \value{
 galog object
@@ -25,4 +25,7 @@ v=1              // Version.
  
 https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
 https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
+}
+\examples{
+ga_set_url(tracking_id="UA-XXXXXXXX-X")
 }
