@@ -399,18 +399,18 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=ga
 #'
 #' @param url url to be used to send
 #'
-#' @return 
+#' @return TRUE/FALSE. Success of failure
 #' @export
 #'
 #' @examples
 send <- function(url){
   if(is.na(galog$settings$tracking_id)){
-    stop("You forgot to set the tracking_id which looks like UA-XXXXX-Y, see ?ga_set_tracking_idor ?ga_save_settings")
+    stop("You forgot to set the tracking_id which looks like UA-XXXXXXXX-X, see ?ga_set_tracking_idor ?ga_save_settings")
   }
   if(galog$settings$consent){
     ## Send the data, put it in a try block to avoid the R program stops
     result <- try(curl_fetch_memory(url), silent = TRUE)
-    return(result)
+    invisible(result)
   }else{
     invisible()
   }
