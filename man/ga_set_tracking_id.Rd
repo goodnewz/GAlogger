@@ -18,5 +18,5 @@ Get your own tracking ID at the Google Analytics website.
 All collected user interactions will be logged with that tracking ID.
 }
 \examples{
-ga_set_tracking_id("UA-25938715-4")
+ga_set_tracking_id("UA-XXXXXXXX-X")
 }

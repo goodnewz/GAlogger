@@ -9,7 +9,7 @@ ga_save_settings(path = NULL, ...)
 \arguments{
 \item{path}{location of file to use}
 
-\item{...}{settings to save. Must be a list with name-value pair (e.g. tracking_id="XXXXXXXX-x")}
+\item{...}{settings to save. Must be a list with name-value pair (e.g. tracking_id="UA-XXXXXXXX-x")}
 }
 \value{
 a helpful message
@@ -18,5 +18,5 @@ a helpful message
 Set user defined settings to file
 }
 \examples{
-ga_set_settings(user_id="User1",tracking_id="XXXXXXXX-x",hostname="Google.com",consent=TRUE)
+ga_set_settings(tracking_id="UA-XXXXXXXX-x",hostname="www.Foo.com",consent=TRUE)
 }
