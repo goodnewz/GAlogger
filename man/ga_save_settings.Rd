@@ -9,7 +9,7 @@ ga_save_settings(path = NULL, ...)
 \arguments{
 \item{path}{location of file to use}
 
-\item{...}{settings to save. Must be a list with name-value pair (e.g. tracking_id="UA-XXXXXXXX-x")}
+\item{...}{settings to save. Name-value pairs.}
 }
 \value{
 a helpful message

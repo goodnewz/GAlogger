@@ -7,7 +7,7 @@
 ga_set_url(tracking_id = NULL)
 }
 \value{
-galog object
+base url
 }
 \description{
 Creates galog$url and ready to send to Google
@@ -15,10 +15,6 @@ Creates galog$url and ready to send to Google
 \details{
 v=1              // Version. 
  &tid=UA-XXXXX-Y  // Tracking ID / Property ID.
- &cid=555         // This anonymously identifies a particular user, device,
- or browser instance 
- &uid=555         // Known identifier for a user provided
- by the site owner/tracking library user 
  &ds=GAlogger        // Data source: set to GAlogger
  
  Google protocol guidelines:

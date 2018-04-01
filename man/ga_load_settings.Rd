@@ -2,7 +2,7 @@
 % Please edit documentation in R/pkg.R
 \name{ga_load_settings}
 \alias{ga_load_settings}
-\title{Save settings specified by user to file}
+\title{Load user settings}
 \usage{
 ga_load_settings(path)
 }
@@ -13,8 +13,9 @@ ga_load_settings(path)
 the settings in a JSON format
 }
 \description{
-Save settings specified by user to file
+The following settings: tracking_id, hostname(optional), and consent(TRUE/FALSE) are loaded from a file specified by the user. 
+Before using this function save your settings with ga_save_settings(path="/location/to/your/settings/file.json",tracking_id=UA-XXXXXXXX-X,hostname="foo.com", consent=TRUE). Or if you already have a settings file copy it to a location where ga_load_settings will be able to read it from. ga_load_settings can read from any location R can read from.
 }
 \examples{
-ge_get_settings()
+ga_load_settings(path="/location/to/your/settings/file.json")
 }
