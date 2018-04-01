@@ -262,35 +262,27 @@ ga_set_approval <- function(message, consent = FALSE){
 #' Initialize tracking
 #'
 #' @param path Path to the file where the settings are saved (Optional). If provided, settings are loaded from that location. Further parameters are ignored
-#' @param user_id  
-#' @param tracking_id 
-#' @param hostname 
-#' @param consent 
+#' @param tracking_id Google Analytics property ID (UA-XXXXXXXX-x)
+#' @param hostname Optinal. Hostname 
+#' @param consent  TRUE/FALSE. Do you agree to provide data to Google analytics. 
+#' @param message Optional. Custom message to display upon agreement of terms. 
 #'
-#' @return
 #' @export
 #'
 #' @examples 
 #' ga_initialize("~/galog.json")
-#' ga_initalize(tracking_id="UA-XXXXXX-x,",user_id="Known user",hostname="www.foo.com",concent=TRUE)
-ga_initialize <- function(path=NULL,tracking_id=NULL,user_id=NULL,hostname="TEMP",consent=TRUE){
+#' ga_initalize(tracking_id="UA-XXXXXXXX-x,",hostname="www.foo.com",concent=TRUE)
+ga_initialize <- function(path=NULL,tracking_id=NULL,consent=TRUE,hostname=NULL,message=NULL){
   if(!is.null(path)){
     galog$settings <- ga_load_settings(path=path)
-    #galog$user_id <- ga_set_user_id(galog$user_id) # Set userID
-    #galog$client_id <- ga_set_client_id(client_id=NULL) #keep client IDs unique
-    #galog$settings$tracking_id <- ga_set_tracking_id(galog$settings$tracking_id)
-    #ga_set_hostname(hostname=galog$settings$hostname)
-    #ga_set_approval(consent=galog$settings$consent)
-    ga_set_url()
-    ga_set_approval_message()
+    galog$url <- ga_set_url(galog$settings$tracking_id)
+    ga_set_approval_message(consent=consent)
   } else{
-    galog$user_id <- ga_set_user_id(user_id)
-    galog$client_id <- ga_set_client_id(client_id=NULL) #keep client IDs unique
-    galog$settings$tracking_id <- ga_set_tracking_id(tracking_id)
-    galog$settings$hostname <- ga_set_hostname(hostname)
-    ga_set_approval(consent=consent)
-    ga_set_url()
-    ga_set_approval_message()
+    galog$settings$tracking_id <- ga_set_tracking_id(tracking_id=tracking_id)
+    galog$settings$hostname <- ga_set_hostname(hostname=hostname)
+    galog$settings$consent <- ga_set_approval(consent=consent)
+    galog$message <- ga_set_approval_message(message=message)
+    galog$url <- ga_set_url(tracking_id)
   }
 }
 # ### Event collection ####

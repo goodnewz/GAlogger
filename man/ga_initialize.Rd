@@ -4,24 +4,24 @@
 \alias{ga_initialize}
 \title{Initialize tracking}
 \usage{
-ga_initialize(path = NULL, tracking_id = NULL, user_id = NULL,
-  hostname = "TEMP", consent = TRUE)
+ga_initialize(path = NULL, tracking_id = NULL, consent = TRUE,
+  hostname = NULL, message = NULL)
 }
 \arguments{
 \item{path}{Path to the file where the settings are saved (Optional). If provided, settings are loaded from that location. Further parameters are ignored}
 
-\item{tracking_id}{}
+\item{tracking_id}{Google Analytics property ID (UA-XXXXXXXX-x)}
 
-\item{user_id}{}
+\item{consent}{TRUE/FALSE. Do you agree to provide data to Google analytics.}
 
-\item{hostname}{}
+\item{hostname}{Optinal. Hostname}
 
-\item{consent}{}
+\item{message}{Optional. Custom message to display upon agreement of terms.}
 }
 \description{
 Initialize tracking
 }
 \examples{
 ga_initialize("~/galog.json")
-ga_initalize(tracking_id="UA-XXXXXX-x,",user_id="Known user",hostname="www.foo.com",concent=TRUE)
+ga_initalize(tracking_id="UA-XXXXXXXX-x,",hostname="www.foo.com",concent=TRUE)
 }
