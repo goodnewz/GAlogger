@@ -312,9 +312,6 @@ ga_initialize <- function(path=NULL,tracking_id=NULL,consent=TRUE,hostname=NULL,
 #' or an object of try-error if the internet is not working
 #' @export
 #' @examples
-#' ga_set_tracking_id("UA-25938715-4")
-#' ga_set_approval(consent = TRUE)
-#'
 #' ga_collect_event(event_category = "Start", event_action = "shiny app launched")
 #' ga_collect_event(event_category = "Simulation",
 #'                  event_label = "Launching Bayesian multi-level model",
@@ -323,15 +320,17 @@ ga_initialize <- function(path=NULL,tracking_id=NULL,consent=TRUE,hostname=NULL,
 #'                  event_label = "convergence failed", event_action = "Oh no")
 #' ga_collect_event(event_category = "Error",
 #'                  event_label = "Bad input", event_action = "send the firesquad", event_value=911)
-ga_collect_event <- function(event_category="Start", event_action="default", event_label, event_value){
+ga_collect_event <- function(event_category="stats", event_action="calculate", event_label, event_value){
   # &ec=video        // Event Category. Required.
   # &ea=play         // Event Action. Required.
   # &el=holiday      // Event label.
   # &ev=300          // Event value.
+  
+  url <- galog$url
   event_category <- curl::curl_escape(event_category)
   event_action <- curl::curl_escape(event_action)
-
-  url <- sprintf("%s&t=event&ec=%s&ea=%s", galog$url, event_category, event_action)
+  
+  url <- sprintf("%s&t=event&ec=%s&ea=%s", url, event_category, event_action)
   if(!missing(event_label)){
     event_label <- curl::curl_escape(as.character(event_label))
     url <- sprintf("%s&el=%s", url, event_label)
