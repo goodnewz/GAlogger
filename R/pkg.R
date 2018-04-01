@@ -109,25 +109,21 @@ ga_set_tracking_id <- function(tracking_id = NULL){
 #' By default for every new R session, a new client_id is generated.
 #' @param user_id a character string with the visitor/user known to you. Defaults to a randomly generated UUID.
 #' 
-#' @return invisibly a list all general settings used to send data to Google Analytics
+#' @return a list containing the user and client IDs
 #' @export
 #' @examples
-#' ga_set_user_id()
-#' ga_set_user_id("root")
-#' ga_set_user_id("team-datascientists")
-#' ga_set_user_id("shiny-server")
+#' ga_set_user_id() //generate a random client_id
+#' ga_set_user_id("root") //generate a user_id=root and random client_id
+#' ga_set_user_id("team-datascientists") //generate a user_id=team-datascientists and random client_id
 #'
-#' x <- sprintf("%s-%s", Sys.getpid(), tolower(Sys.getenv("USERNAME", unset = "default")))
-#' x
-#' ga_set_user_id(x)
 ga_set_user_id <- function(user_id = NULL){
   if(is.null(user_id)){
     # set USERID if null
     user_id <- NULL
-    galog$client_id <- ga_set_client_id(client_id = NULL)
   }
   user_id <- curl::curl_escape(user_id)
-  invisible(user_id)
+  client_id <- ga_set_client_id(client_id = NULL)
+  return(list(user_id=user_id,client_id=client_id))
 }
 
 
@@ -143,7 +139,6 @@ ga_set_user_id <- function(user_id = NULL){
 #' Defaults to a randomly generated UUID.
 #'
 #' @return client_id
-#' @export
 #'
 #' @examples ga_set_client_id(client_id=uuid::UUIDgenerate())
 ga_set_client_id <- function(client_id = NULL){
@@ -152,7 +147,7 @@ ga_set_client_id <- function(client_id = NULL){
     client_id <- uuid::UUIDgenerate()
   }
   client_id <- curl::curl_escape(client_id)
-  invisible(client_id)
+  return(client_id)
 }
 
 

@@ -10,7 +10,7 @@ ga_set_user_id(user_id = NULL)
 \item{user_id}{a character string with the visitor/user known to you. Defaults to a randomly generated UUID.}
 }
 \value{
-invisibly a list all general settings used to send data to Google Analytics
+a list containing the user and client IDs
 }
 \description{
 Set the identifier of a visitor as it is known by you. 
@@ -18,12 +18,8 @@ The user_id identifier is the identifier of the visitor/user as it is know by yo
 By default for every new R session, a new client_id is generated.
 }
 \examples{
-ga_set_user_id()
-ga_set_user_id("root")
-ga_set_user_id("team-datascientists")
-ga_set_user_id("shiny-server")
+ga_set_user_id() //generate a random client_id
+ga_set_user_id("root") //generate a user_id=root and random client_id
+ga_set_user_id("team-datascientists") //generate a user_id=team-datascientists and random client_id
 
-x <- sprintf("\%s-\%s", Sys.getpid(), tolower(Sys.getenv("USERNAME", unset = "default")))
-x
-ga_set_user_id(x)
 }
