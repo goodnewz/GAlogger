@@ -285,14 +285,13 @@ ga_set_approval <- function(message, consent = FALSE){
 ga_initialize <- function(path=NULL,tracking_id=NULL,consent=TRUE,hostname=NULL,message=NULL){
   if(!is.null(path)){
     galog$settings <- ga_load_settings(path=path)
-    galog$url <- ga_set_url(galog$settings$tracking_id)
-    ga_set_approval_message(consent=consent)
+    galog$url <- ga_set_url(tracking_id=galog$settings$tracking_id)
   } else{
     galog$settings$tracking_id <- ga_set_tracking_id(tracking_id=tracking_id)
     galog$settings$hostname <- ga_set_hostname(hostname=hostname)
     galog$settings$consent <- ga_set_approval(consent=consent)
     galog$message <- ga_set_approval_message(message=message)
-    galog$url <- ga_set_url(tracking_id)
+    galog$url <- ga_set_url(tracking_id=tracking_id)
   }
 }
 # ### Event collection ####
