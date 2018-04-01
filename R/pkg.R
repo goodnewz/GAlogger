@@ -193,24 +193,22 @@ ga_set_hostname <- function(hostname='Google.com'){
 #'
 #' @param x sepcify a custom message; otherwise use default message
 #'
-#' @return
+#' @return the message
 #' @export
 #'
 #' @examples
-ga_set_approval_message <- function(x = NULL) {
-  if (is.null(x)) {
-    x <- sprintf(
-      "Hello %s
+ga_set_approval_message <- function(message = NULL) {
+  if (is.null(message)) {
+    message <- sprintf(
+      "Hello
       This is just a message to inform you that we are collecting information how you use this application\nWe will send the following information to Google Analytics:
       - Which parts of our application you are using
       - When errors are occurring
       - Your information will be tracked anonymously as user %s
-      - This information is collected in order to provide us better insights on how people use this application\n",
-      galog$settings$user_id
+      - This information is collected in order to provide us better insights on how people use this application\n"
     )
   }
-  galog$message <- x
-  invisible(as.list(galog))
+  invisible(message)
 }
 
 #' @title Request for approval of the user to send information to Google Analytics

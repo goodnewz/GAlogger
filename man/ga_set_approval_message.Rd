@@ -4,10 +4,13 @@
 \alias{ga_set_approval_message}
 \title{Set the aproval message for the user}
 \usage{
-ga_set_approval_message(x = NULL)
+ga_set_approval_message(message = NULL)
 }
 \arguments{
 \item{x}{sepcify a custom message; otherwise use default message}
+}
+\value{
+the message
 }
 \description{
 Set the aproval message for the user
