@@ -354,7 +354,7 @@ ga_collect_event <- function(user_id=NULL,event_category="stats", event_action="
     url <- sprintf("%s&ev=%s", url, event_value)
   }
   req <- send(url)
-  invisible(req)
+  return(req)
 }
 
 #' @title Send pageviews to Google Analytics
@@ -417,6 +417,7 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=NU
     url <-  sprintf("%s&dl=%s", url, page_url) 
   }
   req <- send(url)
+  print(req)
   return(user)
 }
 
