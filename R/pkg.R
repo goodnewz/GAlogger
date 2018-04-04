@@ -170,8 +170,7 @@ ga_set_client_id <- function(client_id = NULL){
 #' @examples ga_set_url(tracking_id="UA-XXXXXXXX-X")
 ga_set_url <- function(tracking_id=NULL){
   if(!is.null(tracking_id)){
-    url <-"http://www.google-analytics.com/collect?v=1&tid=%s&ds=GAlogger" 
-    tid <- tracking_id
+    url <-sprintf("http://www.google-analytics.com/collect?v=1&tid=%s&ds=GAlogger",tracking_id)
   }else{
     stop("You must specify a Google analytics property ID (tracking_id)")
   }
