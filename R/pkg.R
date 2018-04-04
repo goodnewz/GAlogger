@@ -204,11 +204,10 @@ ga_set_hostname <- function(hostname='Google.com'){
 #' @examples
 ga_set_approval_message <- function(message = NULL) {
   if (is.null(message)) {
-    message <- print("Hello
-      This is just a message to inform you that we are collecting information how you use this application\nWe will send the following information to Google Analytics:
-      - Which parts of our application you are using
-      - When errors are occurring
-      - Your information will be tracked anonymously as user %s
+    message <- as.character("Hello,\nThis is just a message to inform you that we are collecting information how you use this application\nWe will send the following information to Google Analytics:\n
+      - Which parts of our application you are using\n
+      - When errors are occurring\n
+      - Your information will be tracked anonymously as user\n
       - This information is collected in order to provide us better insights on how people use this application\n")
   }
   invisible(message)
