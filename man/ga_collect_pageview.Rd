@@ -31,9 +31,9 @@ Pageviews can be viewed in the Google Analytics > Behaviour tab or in the Real-T
 \examples{
 
 ga_collect_pageview(page = "/home")
-ga_collect_pageview(page = "/home", user_id=user_input)
-user <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.foo.com")
 user <- ga_collect_pageview(page_url="www.foo.com/mypage/")
+user <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.foo.com")
 user <- ga_collect_pageview(page_url="www.foo.com/mypage.hml")
-#' user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
+ga_collect_pageview(page = "/home", user_id=user)
+user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
 }

@@ -375,11 +375,11 @@ ga_collect_event <- function(user=NULL,event_category="stats", event_action="cal
 #' @examples
 #'
 #' ga_collect_pageview(page = "/home")
-#' ga_collect_pageview(page = "/home", user_id=user_input)
-#' user <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.foo.com")
 #' user <- ga_collect_pageview(page_url="www.foo.com/mypage/")
+#' user <- ga_collect_pageview(page = "/home", title = "Homepage", hostname = "www.foo.com")
 #' user <- ga_collect_pageview(page_url="www.foo.com/mypage.hml")
-#' #' user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
+#' ga_collect_pageview(page = "/home", user_id=user)
+#' user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
 ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=galog$settings$hostname, user_id=NULL){
   # For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
   # dl	text	2048 Bytes	= http://foo.com/home?a=b //URL
@@ -391,7 +391,7 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=ga
   
   url <- sprintf("%s&t=pageview",galog$url)
   if(is.null(user_id)){
-  user <- ga_set_user_id(user_id = user_id)
+    user <- ga_set_user_id(user_id = user_id)
   }else{
     user <- user_id
   }
