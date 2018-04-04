@@ -429,13 +429,13 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=NU
 #'
 #' @examples
 send <- function(url){
-  if(is.na(galog$settings$tracking_id)){
+  if(is.null(galog$settings$tracking_id)){
     stop("You forgot to set the tracking_id which looks like UA-XXXXXXXX-X, see ?ga_set_tracking_idor ?ga_save_settings")
   }
   if(galog$settings$consent){
     ## Send the data, put it in a try block to avoid the R program stops
-    result <- try(curl_fetch_memory(url), silent = TRUE)
-    invisible(result)
+    result <- try(curl::curl_fetch_memory(url), silent = TRUE)
+    return(result)
   }else{
     stop("No consent given to send data to Google")
   }
