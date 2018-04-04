@@ -4,11 +4,11 @@
 \alias{ga_collect_event}
 \title{Send events to Google Analytics}
 \usage{
-ga_collect_event(user = NULL, event_category = "stats",
+ga_collect_event(user_id = NULL, event_category = "stats",
   event_action = "calculate", event_label, event_value)
 }
 \arguments{
-\item{user}{a list with a user_id and client_id. Is set by ga_set_user_id or ga_init_user.}
+\item{user_id}{a list with a user_id and client_id. Is set by ga_set_user_id or ga_init_user.}
 
 \item{event_category}{a character string of length 1 with the category of the event}
 

@@ -306,7 +306,7 @@ ga_init_user <- ga_set_user_id
 #' @param event_action a character string of length 1 with the action of the event
 #' @param event_label a character string of length 1 with the label of the event. This is optional.
 #' @param event_value a character string of length 1 with the value of the event. This is optional.
-#' @param user a list with a user_id and client_id. Is set by ga_set_user_id or ga_init_user.
+#' @param user_id a list with a user_id and client_id. Is set by ga_set_user_id or ga_init_user.
 #'
 #' @return invisibly the result of a call to \code{\link[curl]{curl_fetch_memory}} which sends the data to Google Analytics
 #' or an object of try-error if the internet is not working
@@ -325,7 +325,7 @@ ga_init_user <- ga_set_user_id
 #'                  event_label = "convergence failed", event_action = "Oh no")
 #' ga_collect_event(user=user,event_category = "Error",
 #'                  event_label = "Bad input", event_action = "send the firesquad", event_value=911)
-ga_collect_event <- function(user=NULL,event_category="stats", event_action="calculate", event_label, event_value){
+ga_collect_event <- function(user_id=NULL,event_category="stats", event_action="calculate", event_label, event_value){
   # &ec=video        // Event Category. Required.
   # &ea=play         // Event Action. Required.
   # &el=holiday      // Event label.
@@ -333,6 +333,7 @@ ga_collect_event <- function(user=NULL,event_category="stats", event_action="cal
   url <- galog$url
   event_category <- curl::curl_escape(event_category)
   event_action <- curl::curl_escape(event_action)
+  user <- user_id
   
   if(is.nill(user)){
     stop("Please set user variable first with ga_set_user_id or ga_init_user")
