@@ -380,7 +380,7 @@ ga_collect_event <- function(user=NULL,event_category="stats", event_action="cal
 #' user <- ga_collect_pageview(page_url="www.foo.com/mypage.hml")
 #' ga_collect_pageview(page = "/home", user_id=user)
 #' user <- ga_collect_pageview(page=session$clientData$url_pathname, hostname=session$clientData$url_hostname)
-ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=galog$settings$hostname, user_id=NULL){
+ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=NULL, user_id=NULL){
   # For 'pageview' hits, either &dl or both &dh and &dp have to be specified for the hit to be valid.
   # dl	text	2048 Bytes	= http://foo.com/home?a=b //URL
   #
@@ -401,6 +401,9 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=ga
                  user$client_id,
                  user$user_id)
   
+  if(is.null(hostname)){
+    hostname <- galog$settings$hostname
+  } 
   
   if(is.null(page_url)){
     hostname <- curl::curl_escape(as.character(hostname))
