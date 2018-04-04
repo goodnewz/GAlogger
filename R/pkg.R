@@ -334,7 +334,7 @@ ga_collect_event <- function(user_id=NULL,event_category="stats", event_action="
   event_action <- curl::curl_escape(event_action)
   user <- user_id
   
-  if(is.nill(user)){
+  if(is.null(user)){
     stop("Please set user variable first with ga_set_user_id or ga_init_user")
   }
   
