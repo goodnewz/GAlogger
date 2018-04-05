@@ -258,6 +258,16 @@ ga_set_approval <- function(message, consent = FALSE){
   invisible(consent)
 }
 
+is.set_user <- function(user_id=NULL){
+  if(is.null(user_id)){
+    stop("You must pass a user_id argument")
+  }
+  if(length(user_id$user_id)==0||!is.character(user_id$user_id)){
+    return(FALSE)
+  }else(return(TRUE))
+  
+}
+
 #### SETUP ####
 
 #' Initialize tracking
@@ -390,16 +400,18 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=NU
   # dp  text  2048 Bytes = /foo //page
   
   url <- sprintf("%s&t=pageview",galog$url)
-  if(is.null(user_id)){
-    user <- ga_set_user_id(user_id = user_id)
-  }else{
     user <- user_id
-  }
   
+  if(!is.set_user(user_id)){
+    url <- sprintf("%s&cid=%s",
+                   url,
+                   user$client_id)
+  }else{
   url <- sprintf("%s&cid=%s&uid=%s",
                  url,
                  user$client_id,
                  user$user_id)
+  }
   
   if(is.null(hostname)){
     hostname <- galog$settings$hostname
