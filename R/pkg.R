@@ -400,17 +400,17 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=NU
   # dp  text  2048 Bytes = /foo //page
   
   url <- sprintf("%s&t=pageview",galog$url)
-    user <- user_id
+  user <- user_id
   
   if(!is.set_user(user_id)){
     url <- sprintf("%s&cid=%s",
                    url,
                    user$client_id)
   }else{
-  url <- sprintf("%s&cid=%s&uid=%s",
-                 url,
-                 user$client_id,
-                 user$user_id)
+    url <- sprintf("%s&cid=%s&uid=%s",
+                   url,
+                   user$client_id,
+                   user$user_id)
   }
   
   if(is.null(hostname)){
@@ -429,7 +429,7 @@ ga_collect_pageview <- function(page_url=NULL,page=NULL, title=NULL, hostname=NU
     url <-  sprintf("%s&dl=%s", url, page_url) 
   }
   req <- send(url)
-  return(user)
+  return(req)
 }
 
 #' Send event using curl
